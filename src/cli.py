@@ -51,9 +51,9 @@ def main():
         "large-v3",
     ], "Invalid model name"
     assert 0.0 <= args.temperature <= 1.0, "Temperature must be between 0.0 and 1.0"
-    assert (
-        os.path.splitext(args.output)[1] == ".txt"
-    ), "Output file must have .txt extension"
+    assert os.path.splitext(args.output)[1] == ".txt", (
+        "Output file must have .txt extension"
+    )
     assert not os.path.exists(args.output), f"Output file {args.output} already exists"
 
     audio_bytes = download_audio_as_wav_bytes(args.url)
@@ -65,6 +65,9 @@ def main():
         temperature=args.temperature,
         fp16=(not args.no_fp16),
     )
+
+    # add source to text
+    text = f"Source: {args.url}\n\n{text}"
 
     with open(args.output, "w", encoding="utf-8") as f:
         f.write(text + "\n")
