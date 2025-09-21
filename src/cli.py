@@ -1,8 +1,8 @@
 import argparse
-import uuid
 import os
+import uuid
 
-from core import logger, transcribe_wav, download_audio_as_wav_bytes
+from core import download_audio_as_wav_bytes, logger, transcribe_wav
 
 
 def main():
@@ -43,6 +43,19 @@ def main():
     args = parser.parse_args()
 
     assert args.url, "You must provide a YouTube URL or - for stdin"
+    assert args.model in [
+        "tiny",
+        "base",
+        "small",
+        "medium",
+        "large-v3",
+    ], "Invalid model name"
+    assert 0.0 <= args.temperature <= 1.0, "Temperature must be between 0.0 and 1.0"
+    assert (
+        os.path.splitext(args.output)[1] == ".txt"
+    ), "Output file must have .txt extension"
+    assert not os.path.exists(args.output), f"Output file {args.output} already exists"
+
     audio_bytes = download_audio_as_wav_bytes(args.url)
 
     text = transcribe_wav(
@@ -57,7 +70,3 @@ def main():
         f.write(text + "\n")
 
     logger.info(f"Transcription saved to {args.output}")
-
-
-if __name__ == "__main__":
-    main()

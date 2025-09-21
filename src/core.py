@@ -1,17 +1,14 @@
-import argparse
 import io
 import logging
 import os
 import subprocess
 import sys
 import tempfile
-import uuid
-from typing import Union
+from typing import Optional, Union
 
 import torch
 import whisper
 import yt_dlp
-
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
@@ -24,9 +21,9 @@ logging.basicConfig(
 def transcribe_wav(
     wav: Union[str, bytes, io.BufferedIOBase],
     model_name: str = "base",  # "tiny" | "base" | "small" | "medium" | "large-v3"
-    language: str | None = None,  # e.g. "en", "pt"; None = auto-detect
+    language: Optional[str] = None,  # e.g. "en", "pt"; None = auto-detect
     temperature: float = 0.0,  # higher -> more creative, lower -> more deterministic
-    fp16: bool | None = None,  # None = auto (True if CUDA available)
+    fp16: Optional[bool] = None,  # None = auto (True if CUDA available)
 ) -> str:
     """
     Transcribe a WAV with Whisper and return the text.
