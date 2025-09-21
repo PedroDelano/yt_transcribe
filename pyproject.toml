@@ -1,0 +1,22 @@
+[project]
+name = "yt_transcribe"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "black>=25.9.0",
+    "ffmpeg>=1.4",
+    "isort>=6.0.1",
+    "openai-whisper>=20250625",
+    "ruff>=0.13.1",
+    "torch==2.5.0",
+    "transformers>=4.56.2",
+    "yt-dlp>=2025.9.5",
+]
+
+[project.scripts]
+yt_transcribe = "yt_transcribe.cli:main"
+
+[tool.uv]
+package = true 
