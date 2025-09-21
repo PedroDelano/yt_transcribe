@@ -20,7 +20,7 @@ cd yt_transcribe
 pip install -e .
 ```
 
-This will install the dependencies listed in `pyproject.toml`:
+This will install the dependencies listed' in `pyproject.toml`:
 
 * `ffmpeg>=1.4`
 * `yt-dlp>=2025.9.5`
