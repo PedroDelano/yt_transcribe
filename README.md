@@ -15,7 +15,8 @@ A simple command-line tool that downloads audio from a YouTube video and transcr
 You need Python ≥3.9.
 
 ```bash
-# clone your repo first
+git clone git@github.com:PedroDelano/yt_transcribe.git
+cd yt_transcribe
 pip install -e .
 ```
 
@@ -34,7 +35,7 @@ Make sure `ffmpeg` is also installed on your system.
 Run from the command line:
 
 ```bash
-python -m subs_fer.main \
+python -m yt_transcribe.main \
   "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \
   --model base \
   --language en \
@@ -56,7 +57,7 @@ The transcribed text will be saved under the `output/` folder with the same base
 Example:
 
 ```bash
-python -m subs_fer.main "https://youtu.be/xyz" --model small --language pt
+python -m yt_transcribe.main "https://youtu.be/xyz" --model small --language pt
 ```
 
 This will:
@@ -71,7 +72,7 @@ This will:
 You can also import the functions in Python:
 
 ```python
-from subs_fer.main import download_audio_as_wav_bytes, transcribe_wav
+from yt_transcribe.main import download_audio_as_wav_bytes, transcribe_wav
 
 audio_bytes = download_audio_as_wav_bytes("https://youtu.be/xyz")
 text = transcribe_wav(audio_bytes, model_name="base", language="en")
